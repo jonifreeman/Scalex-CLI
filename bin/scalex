@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export CLASSPATH=$(dirname $0)/scalex-cli.jar
+
+java scalex.cli.ScalexCLI "$@"
