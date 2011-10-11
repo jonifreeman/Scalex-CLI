@@ -1,7 +1,7 @@
 A command line interface for Scalex
 ===================================
 
-![Scalex](http://http://scalex.org) is a cool Hoogle style index for Scaladocs.
+[Scalex](http://http://scalex.org) is a cool Hoogle style index for Scaladocs.
 
 Run
 ---
@@ -18,5 +18,5 @@ Run
 TODO
 ----
 
-* Better launcher
+* Better launcher / runner
 * Improved error handling

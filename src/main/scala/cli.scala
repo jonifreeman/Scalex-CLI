@@ -17,7 +17,8 @@ object ScalexCLI extends App {
   val parse = (data: JValue) => (data \ "results").extract[List[Result]]
 
   val render = (results: List[Result]) => 
-    results.map { r => green(r.parent.name) + " " + bold(r.name) + r.typeParams + ": " + 
+    results.map { r => green(r.parent.name) + " " + bold(r.name) + r.typeParams + 
+                       (if (r.typeParams != "") ": " else "") + 
                        red(r.valueParams) + ": " + red(r.resultType) + "\n" + 
                        grey(r.qualifiedName) + "\n" + r.comment.text }.mkString("\n\n") 
 
