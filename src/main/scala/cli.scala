@@ -1,3 +1,5 @@
+package scalex.cli
+
 import dispatch._
 import net.liftweb.json._
 
@@ -20,7 +22,7 @@ object ScalexCLI extends App {
     results.map { r => green(r.parent.name) + " " + bold(r.name) + r.typeParams + 
                        (if (r.typeParams != "") ": " else "") + 
                        red(r.valueParams) + ": " + red(r.resultType) + "\n" + 
-                       grey(r.qualifiedName) + "\n" + r.comment.text }.mkString("\n\n") 
+                       grey(r.qualifiedName) + "\n" + r.comment.text }.mkString("\n\n")
 
   def red(s: String) = Console.RED + s + Console.RESET
   def green(s: String) = Console.GREEN + s + Console.RESET
