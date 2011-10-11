@@ -21,7 +21,7 @@ Run with SBT
 * Install SBT 0.11
 * Start SBT console
 * in SBT console: update
-* Then...
+* Then... (note, spaces are not allowed in sbt command args)
 * run List
 * run List[A]=>A
 * ...
