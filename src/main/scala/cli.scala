@@ -11,9 +11,16 @@ case class Result(name: String, qualifiedName: String, parent: Parent, typeParam
 object ScalexCLI extends App {
   implicit val formats = DefaultFormats
 
+  val http = new Http { 
+    override def make_logger = new Logger { 
+      def info(msg: String, items: Any*) = () 
+      def warn(msg: String, items: Any*) = () 
+    }
+  }
+
   val query = (q: String) => {
     val req = :/("scalex.org", 8080) / "scalex-http" <<? Map("q" -> q)
-    Http(req >- JsonParser.parse)
+    http(req >- JsonParser.parse)
   }
 
   val parse = (data: JValue) => (data \ "results").extract[List[Result]]
