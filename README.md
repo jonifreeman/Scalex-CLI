@@ -8,7 +8,8 @@ Run
 
 * Clone this project
 * Install SBT 0.11
-* Start sbt
+* Start SBT console
+* in SBT console: update
 * Then...
 * run List
 * run List[A]=>A
