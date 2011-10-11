@@ -14,19 +14,3 @@ Try it:
     scalex 'List[A] => A'
     scalex 'List[A] => (A => B) => List[B]'
 
-Run with SBT
-------------
-
-* Clone this project
-* Install SBT 0.11
-* Start SBT console
-* in SBT console: update
-* Then... (note, spaces are not allowed in sbt command args)
-* run List
-* run List[A]=>A
-* ...
-
-TODO
-----
-
-* Improved error handling
