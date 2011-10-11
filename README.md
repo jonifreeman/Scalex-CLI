@@ -9,6 +9,8 @@ Install
 * Download files 'scalex' and 'scalex-cli.jar' from 'bin/'
 * Put those files to some dir in your PATH
 
+Try it:
+
     scalex 'List[A] => A'
     scalex 'List[A] => (A => B) => List[B]'
 
