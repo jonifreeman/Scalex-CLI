@@ -20,7 +20,7 @@ object ScalexCLI extends App {
   }
 
   val query = (q: String) => {
-    val req = :/("scalex.org", 8080) / "scalex-http" <<? Map("q" -> q)
+    val req = :/("scalex.org", 8080) <<? Map("q" -> q)
     http(req >- JsonParser.parse)
   }
 
