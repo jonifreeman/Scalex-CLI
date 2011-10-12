@@ -4,7 +4,8 @@ import dispatch._
 import net.liftweb.json._
 
 case class Parent(name: String, qualifiedName: String, typeParams: String)
-case class Comment(text: String, html: String)
+case class Comment(body: Body)
+case class Body(txt: String, html: String)
 case class Result(name: String, qualifiedName: String, parent: Parent, typeParams: String, 
                   valueParams: String, resultType: String, comment: Comment)
 
@@ -29,7 +30,7 @@ object ScalexCLI extends App {
     results.map { r => green(r.parent.name) + " " + bold(r.name) + r.typeParams + 
                        (if (r.typeParams != "") ": " else "") + 
                        red(r.valueParams) + ": " + red(r.resultType) + "\n" + 
-                       grey(r.qualifiedName) + "\n" + r.comment.text }.mkString("\n\n")
+                       grey(r.qualifiedName) + "\n" + r.comment.body.txt }.mkString("\n\n")
 
   def red(s: String) = Console.RED + s + Console.RESET
   def green(s: String) = Console.GREEN + s + Console.RESET
