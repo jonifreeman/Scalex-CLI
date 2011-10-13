@@ -1,6 +1,6 @@
 name := "Scalex CLI"
 
-version := "0.1"
+version := "0.2"
 
 libraryDependencies ++= Seq(
   "net.databinder" %% "dispatch-http" % "0.8.5",

@@ -4,10 +4,10 @@ import dispatch._
 import net.liftweb.json._
 
 case class Parent(name: String, qualifiedName: String, typeParams: String)
-case class Comment(body: Option[Body])
-case class Body(txt: String, html: String)
+case class Comment(short: Option[Text], body: Option[Text], valueParams: Map[String, Text])
+case class Text(txt: String, html: String)
 case class Result(name: String, qualifiedName: String, parent: Parent, typeParams: String, 
-                  valueParams: String, resultType: String, comment: Comment)
+                  valueParams: String, resultType: String, comment: Option[Comment])
 
 object ScalexCLI extends App {
   implicit val formats = DefaultFormats
@@ -30,7 +30,8 @@ object ScalexCLI extends App {
     results.map { r => green(r.parent.name) + " " + bold(r.name) + r.typeParams + 
                        (if (r.typeParams != "") ": " else "") + 
                        red(r.valueParams) + ": " + red(r.resultType) + "\n" + 
-                       grey(r.qualifiedName) + "\n" + r.comment.body.map(_.txt).getOrElse("") }.mkString("\n\n")
+                       grey(r.qualifiedName) + "\n" + 
+                       (for { c <- r.comment; b <- c.body } yield b.txt).getOrElse("") }.mkString("\n\n")
 
   def red(s: String) = Console.RED + s + Console.RESET
   def green(s: String) = Console.GREEN + s + Console.RESET
