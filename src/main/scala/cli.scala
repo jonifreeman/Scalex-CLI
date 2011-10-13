@@ -37,5 +37,21 @@ object ScalexCLI extends App {
   def bold(s: String) = Console.BOLD + s + Console.RESET
   def grey(s: String) = "\033[37m" + s + Console.RESET
 
-  println(args.headOption.map(query andThen parse andThen render).getOrElse(red("Please provide a query")))
+  def help = { println(helpText); sys.exit(0) }
+
+  def parseArgs(args: List[String], opts: Opts): Opts = args match {
+    case Nil        => opts
+    case "-h" :: as => help
+    case "-d" :: as => parseArgs(as, opts.copy(detailedComments = true))
+    case a :: as    => parseArgs(as, opts.copy(queries = opts.queries ++ List(a)))
+  }
+
+  parseArgs(args.toList, Opts(Nil)) match {
+    case Opts(Nil, _) => println(red("Please provide a query"))
+    case o            => o.queries.foreach(query andThen parse andThen render andThen println)
+  }
+
+  def helpText = """ FIXME """
 }
+
+case class Opts(queries: List[String], detailedComments: Boolean = false)
