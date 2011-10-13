@@ -20,7 +20,7 @@ object ScalexCLI extends App {
   }
 
   val query = (q: String) => {
-    val req = :/("scalex.org", 8080) <<? Map("q" -> q)
+    val req = :/("api.scalex.org", 80) <<? Map("q" -> q)
     http(req >- JsonParser.parse)
   }
 
@@ -40,10 +40,10 @@ object ScalexCLI extends App {
                        (if (opts.detailedComments) detailedComment(r) else shortComment(r)) }.mkString("\n\n")
   }
 
-  def red(s: String) = Console.RED + s + Console.RESET
-  def green(s: String) = Console.GREEN + s + Console.RESET
-  def bold(s: String) = Console.BOLD + s + Console.RESET
-  def grey(s: String) = "\033[37m" + s + Console.RESET
+  def red    = Console.RED + (_: String) + Console.RESET
+  def green  = Console.GREEN + (_: String) + Console.RESET
+  def bold   = Console.BOLD + (_: String) + Console.RESET
+  def grey   = "\033[37m" + (_: String) + Console.RESET
 
   def help = { println(helpText); sys.exit(0) }
 
