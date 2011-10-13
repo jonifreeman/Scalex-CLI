@@ -48,10 +48,21 @@ object ScalexCLI extends App {
 
   parseArgs(args.toList, Opts(Nil)) match {
     case Opts(Nil, _) => println(red("Please provide a query"))
-    case o            => o.queries.foreach(query andThen parse andThen render andThen println)
+    case opts         => opts.queries.foreach(query andThen parse andThen render andThen println)
   }
 
-  def helpText = """ FIXME """
+  def helpText = """|A command line interface to Scalex (scalex.org)
+                    |
+                    |  Usage: scalex [opts] q1 q2 ... qn
+                    |
+                    |  -h  -- prints this help
+                    |  -d  -- prints detailed comments
+                    |
+                    |  Examples:
+                    |
+                    |  scalex 'List[A] => A'
+                    |  scalex -d 'List[A] => A' 'List[A] => Option[A]'
+                    |""".stripMargin
 }
 
 case class Opts(queries: List[String], detailedComments: Boolean = false)
