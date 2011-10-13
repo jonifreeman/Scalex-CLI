@@ -26,12 +26,19 @@ object ScalexCLI extends App {
 
   val parse = (data: JValue) => (data \ "results").extract[List[Result]]
 
-  val render = (results: List[Result]) => 
+  val render = (opts: Opts) => (results: List[Result]) => {
+    def shortComment(r: Result) = (for { c <- r.comment; b <- c.short } yield b.txt).getOrElse("")
+    def detailedComment(r: Result) = (for { c <- r.comment; b <- c.body } yield b.txt + "\n\n" + params(c)).getOrElse("")
+    def params(c: Comment) = (c.valueParams.map { 
+      case (n, t) => "  " + bold(n) + (" " * ((20 - n.length) max 1)) + t.txt
+    }).mkString("\n")
+
     results.map { r => green(r.parent.name) + " " + bold(r.name) + r.typeParams + 
                        (if (r.typeParams != "") ": " else "") + 
                        red(r.valueParams) + ": " + red(r.resultType) + "\n" + 
                        grey(r.qualifiedName) + "\n" + 
-                       (for { c <- r.comment; b <- c.body } yield b.txt).getOrElse("") }.mkString("\n\n")
+                       (if (opts.detailedComments) detailedComment(r) else shortComment(r)) }.mkString("\n\n")
+  }
 
   def red(s: String) = Console.RED + s + Console.RESET
   def green(s: String) = Console.GREEN + s + Console.RESET
@@ -49,7 +56,7 @@ object ScalexCLI extends App {
 
   parseArgs(args.toList, Opts(Nil)) match {
     case Opts(Nil, _) => println(red("Please provide a query"))
-    case opts         => opts.queries.foreach(query andThen parse andThen render andThen println)
+    case opts         => opts.queries.foreach(query andThen parse andThen render(opts) andThen println)
   }
 
   def helpText = """|A command line interface to Scalex (scalex.org)

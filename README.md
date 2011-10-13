@@ -13,4 +13,6 @@ Try it:
 
     scalex 'List[A] => A'
     scalex 'List[A] => (A => B) => List[B]'
+    scalex -d addString
+    scalex -h
 
