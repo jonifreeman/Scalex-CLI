@@ -4,7 +4,7 @@ import dispatch._
 import net.liftweb.json._
 
 case class Parent(name: String, qualifiedName: String, typeParams: String)
-case class Comment(short: Option[Text], body: Option[Text], valueParams: Map[String, Text])
+case class Comment(short: Option[Text], body: Option[Text], valueParams: Option[Map[String, Text]])
 case class Text(txt: String, html: String)
 case class Result(name: String, qualifiedName: String, parent: Parent, typeParams: String, 
                   valueParams: String, resultType: String, comment: Option[Comment])
@@ -29,7 +29,7 @@ object ScalexCLI extends App {
   val render = (opts: Opts) => (results: List[Result]) => {
     def shortComment(r: Result) = (for { c <- r.comment; b <- c.short } yield b.txt).getOrElse("")
     def detailedComment(r: Result) = (for { c <- r.comment; b <- c.body } yield b.txt + "\n\n" + params(c)).getOrElse("")
-    def params(c: Comment) = (c.valueParams.map { 
+    def params(c: Comment) = (c.valueParams.getOrElse(Map()).map {
       case (n, t) => "  " + bold(n) + (" " * ((20 - n.length) max 1)) + t.txt
     }).mkString("\n")
 
