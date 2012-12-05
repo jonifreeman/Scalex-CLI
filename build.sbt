@@ -3,8 +3,8 @@ name := "Scalex CLI"
 version := "0.2"
 
 libraryDependencies ++= Seq(
-  "net.databinder" %% "dispatch-http" % "0.8.5",
-  "net.liftweb" %% "lift-json" % "2.4-M4"
+  "net.databinder" %% "dispatch-http" % "0.8.8",
+  "net.liftweb" %% "lift-json" % "2.5-M3"
 )
 
 seq(ProguardPlugin.proguardSettings :_*)
